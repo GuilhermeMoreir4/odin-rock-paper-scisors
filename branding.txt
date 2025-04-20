@@ -1,0 +1,7 @@
+We need to do the rock,paper scisors game.
+
+Program flow:
+    -User input;
+    -Computer input (maybe an array with 3 numbers);
+    -Compare user input with the computer input; -> Wich is the best solution ? I don't need a lot of string comparison
+    -Game Loop, around five rounds and display the winner;
