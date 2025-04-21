@@ -1,0 +1,125 @@
+body{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(90deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+#input-choice{
+    display: flex;
+    gap: 30px;
+}
+
+h1,h2,p{
+    color: white;
+}
+
+button{
+    padding: 20px;
+    font-size: 50px;
+    width: 200px;
+
+    background-image: linear-gradient(to right, #232526 0%, #414345  51%, #232526  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: rgb(92, 92, 92);            
+    box-shadow: 0 0 20px #1f1f1f;
+    border-radius: 10px;
+    display: block;
+}
+
+
+button:hover{
+    cursor:pointer;
+    scale: 1.1;
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#answer-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 5px solid rgb(92, 92, 92);
+    box-shadow: 5px 5px 5px black;
+}
+
+/* Tablet (<= 768px) */
+@media (max-width: 768px) {
+    body {
+        gap: 20px;
+        padding: 20px;
+    }
+
+    #input-choice {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    button {
+        font-size: 40px;
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    main {
+        gap: 30px;
+    }
+
+    #answer-container {
+        max-width: 80%;
+        padding: 20px;
+    }
+}
+
+/* Celular (<= 480px) */
+@media (max-width: 480px) {
+    body {
+        gap: 15px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    h2, p {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    #input-choice {
+        gap: 15px;
+    }
+
+    button {
+        font-size: 30px;
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    #answer-container {
+        max-width: 80%;
+        padding: 15px;
+        font-size: 16px;
+    }
+}

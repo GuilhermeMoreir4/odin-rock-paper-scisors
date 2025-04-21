@@ -1,5 +1,6 @@
 var playerScore = 0;
 var computerScore = 0;
+const pointsToWin = 5;
 
 //just in case we need a diferent rule in the future
 function playerWon(){
@@ -10,11 +11,6 @@ function computerWon(){
     computerScore++;
 }
 
-
-function playerChoice(){
- return prompt("Chose: Rock, Paper or Scisor").toLowerCase();
-}
-
 function computerChoice(){
     const choose = ["rock", "paper","scisor"];
     return choose[parseInt(Math.random() * 3)];
@@ -23,10 +19,10 @@ function computerChoice(){
 function rockCase(computerInput){
     if(computerInput == "paper"){
         computerWon();
-        console.log("You lose! \n Paper beat's Rock!");
+        showRound("You lose! \n Paper beat's Rock!");
     }else{
         playerWon();
-        console.log("Youv'e won! \n Rock beat's Scisors.");
+        showRound("Youv'e won! \n Rock beat's Scisors.");
     }
 }
 
@@ -34,26 +30,26 @@ function rockCase(computerInput){
 function paperCase(computerInput){
     if(computerInput == "scisor"){
         computerWon();
-        console.log("You lose! \n Scisor beat's Paper!");
+        showRound("You lose! \n Scisor beat's Paper!");
     }else{
         playerWon();
-        console.log("Youv'e won! \n Paper beat's Rock.");
+        showRound("Youv'e won! \n Paper beat's Rock.");
     }
 }
 
 function scisorCase(computerInput){
     if(computerInput == "rock"){
         computerWon();
-        console.log("You lose! \n Rock beat's Scisor!");
+        showRound("You lose! \n Rock beat's Scisor!");
     }else{
         playerWon();
-        console.log("Youv'e won! \n Scisor beat's Paper.");
+        showRound("Youv'e won! \n Scisor beat's Paper.");
     }
 }
 
 function playRound(userInput, computerInput){   
      if(userInput === computerInput){
-        console.log("Youv'e draw.");
+        showRound("Youv'e draw.");
      }else{
         switch(userInput){
             case "rock":
@@ -70,26 +66,87 @@ function playRound(userInput, computerInput){
 }
 
 
-function gameLoop(){
-    let rounds = 0;
+function isGameFinish(){
+    if(playerScore >= pointsToWin || computerScore >= pointsToWin){
+        return true;
+    }
+    return false;
+}
+
+function showComemoration(){
     
+    const fireworks = document.querySelector("#fireworks");
+    const firework1 = document.createElement("div");
+    const firework2 = document.createElement("div");
+    const firework3 = document.createElement("div");
 
-    while(rounds < 5){
-        const userInput = playerChoice();
-        const computerInput =computerChoice();
-        playRound(userInput, computerInput);
-        rounds ++;
-    }
+    firework1.classList = "firework";
+    firework2.classList = "firework";
+    firework3.classList = "firework";
 
+    fireworks.appendChild(firework1);
+    fireworks.appendChild(firework2);
+    fireworks.appendChild(firework3);
+}
+
+function showWhoWins(){
     if(playerScore > computerScore){
-        console.log("Youv'e won the game!");
+        showRound("Youv'e won the game!");
+        showComemoration();
     }else if(playerScore == computerScore){
-        console.log("A solid draw!");
+        showRound("A solid draw!");
     }else{
-        console.log("The computer is smater tahn you i guess.");
+        showRound("The computer is smater tahn you i guess.");
     }
+}
 
-    console.log("Computer make: " + computerScore + "\nYou made: " + playerScore);
+function clearContent(div){
+    while(div.firstChild){
+        div.removeChild(div.firstChild);
+    } 
+}
+
+function showRound(message){
+    const answerContainer = document.querySelector("#answer-container");
+    
+    clearContent(answerContainer);
+
+    const h2 = document.createElement("h2");
+    const paragraph1 = document.createElement("p");
+    const paragraph2 = document.createElement("p");
+    const paragraph3 = document.createElement("p");
+    
+    h2.textContent = "Infos";
+    paragraph1.textContent = message;
+    paragraph2.textContent = "Player score: " + playerScore;
+    paragraph3.textContent = "Computer score: " + computerScore;
+
+    answerContainer.appendChild(h2);
+    answerContainer.appendChild(paragraph1);
+    answerContainer.appendChild(paragraph2);
+    answerContainer.appendChild(paragraph3);
+}
+
+
+function handleEvents(){
+    const btns = document.querySelectorAll("button");
+    
+    btns.forEach(button => {
+        button.addEventListener("click",(e) => {
+                if(isGameFinish()){
+                    showWhoWins();
+                }else{
+                    const computer = computerChoice();
+                    playRound(button.id,computer);
+                    if(isGameFinish()) {showWhoWins()};
+                }
+        });
+    });
+}
+
+
+function gameLoop(){
+    handleEvents();
 }
 
 gameLoop();
